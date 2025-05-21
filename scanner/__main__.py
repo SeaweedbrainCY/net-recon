@@ -2,6 +2,8 @@ from . import recon
 from .config import logging,conf
 from .notification import *
 import os 
+import concurrent.futures
+
 
 def main():
     """
@@ -27,13 +29,19 @@ NetRecon - Discover and verify the ports exposure of your network
                  """)
     logging.info("Starting scanner")
     logging.info("Loading config")
-    logging.info(f"Found {len(conf.hosts.host_list)} hosts to scan")
+    logging.info(f"Found {len(conf.hosts.host_list)} hosts to scan.")
+    logging.info(f"Spawning {conf.option.parallel_scan} workers for scanning")
     scan_result = {} 
-    faulty_hosts = {}
     are_hosts_all_green = True
+    scan_pool = concurrent.futures.ThreadPoolExecutor(max_workers=conf.option.parallel_scan)
+    futures = []
     for host in conf.hosts.host_list.keys():
-        logging.info(f"Scanning host {host}")
-        open_ports, ip = recon.scan_open_ports(conf.hosts.host_list[host]["ip_or_hostname"])
+        futures.append(scan_pool.submit(recon.scan_open_ports, conf.hosts.host_list[host]["ip_or_hostname"], host))
+
+        
+    
+    for future in concurrent.futures.as_completed(futures):
+        host, open_ports, ip = future.result()
         if host not in scan_result:
                 scan_result[host] = {"ports": [], "ip":ip, "faulty": False}
         for port in open_ports:
@@ -41,7 +49,7 @@ NetRecon - Discover and verify the ports exposure of your network
                 scan_result[host]["ports"] += [{"number": port, "expected": False}]
                 are_hosts_all_green = False
                 scan_result[host]["faulty"] = True
-                logging.warning(f"Port {port} is open but was not expected")
+                logging.warning(f"{host} : Port {port} is open but was not expected")
             else:
                 scan_result[host]["ports"] += [{"number": port, "expected": True}]
     

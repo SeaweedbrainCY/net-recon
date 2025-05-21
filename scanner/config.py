@@ -42,6 +42,13 @@ class NetworkDiscovery:
         for network in networks:
             self.networks.append(network)
 
+class Option:
+    def __init__(self, option):
+        if "parallel_scan" in option:
+            self.parallel_scan = option["parallel_scan"]
+        else:
+            self.parallel_scan = 2
+
 class Config:
     required_keys = ["hosts"]
     def __init__(self, data):
@@ -52,6 +59,7 @@ class Config:
         self.hosts = Hosts(data["hosts"] if data["hosts"] != None else [])
         self.notification = Notification(data["notification"] if "notification" in data else []) 
         self.network_discovery = NetworkDiscovery(data["network_discovery"] if "network_discovery" in data else [])
+        self.option = Option(data["option"] if "option" in data else [])
 
 try:
     with open("./config.yml") as config_yml:

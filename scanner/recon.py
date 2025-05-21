@@ -2,12 +2,15 @@ import nmap3
 import ipaddress
 nmap = nmap3.Nmap()
 hots_discovery = nmap3.NmapHostDiscovery()
+from .config import logging
 
 
-def scan_open_ports(host):
+
+def scan_open_ports(host, name):
     """
         open_ports = [22, 80, 443]
     """
+    logging.info(f"Scanning {name}.")
     scan_result_raw = nmap.scan_top_ports(host, default=1000, args="-Pn")
     is_host_an_ip = True 
     host_ip = None
@@ -36,8 +39,8 @@ def scan_open_ports(host):
                             if port['state'] == 'open':
                                 open_ports.append(int(port['portid']))
                         break
-    
-    return open_ports, host_ip
+    logging.info(f"{name} ({host_ip}) has the following open ports : {open_ports}")
+    return name,open_ports, host_ip
 
     
 
