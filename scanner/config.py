@@ -17,7 +17,7 @@ class Hosts:
                     logging.error(f"[FATAL] Load config fail. Was expecting the key hosts.{key} for {host["name"]}")
                     exit(1)
             self.host_list[host["name"]] = {
-                "open_ports": host["open_ports"],
+                "open_ports": host["open_ports"] if host["open_ports"] != None else [],
                 "ip_or_hostname": host["ip_or_hostname"]
             }
 
