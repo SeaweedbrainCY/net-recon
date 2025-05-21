@@ -43,7 +43,8 @@ hosts:
   - name: Example 
     # IP address or hostname of the host to be scanned. Can be a domain name or an IP address.
     ip_or_hostname: 192.168.0.1 
-    # List of ports to be monitored. The tool will compare open ports to this list.
+    # List of ports that should be open. The tool will compare open ports to this list.
+    # If no port should be opened, leave the list empty.
     open_ports: 
       - 22
       - 80
@@ -62,8 +63,8 @@ network_discovery:
 
 # Notification provider
 # After each run, the script will notify you of its last state with important information.
-# Available prodiders: Discord
+# Available providers: Discord
 # Comment out the notification section if you don't want this feature.
 notification:
   discord: 
-    url: https://discord.com/api/webhooks/1374562336647680111/JilOVHh34wsuL3rzpaLutRr3rVB3EFLpgNa6F1fuSoUZuzYInxm5sTXWR-szTMk51OGd
+    url: https://discord.com/api/webhooks/...
