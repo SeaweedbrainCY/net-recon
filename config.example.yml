@@ -1,0 +1,69 @@
+#### 
+# NetRecon - Discover and verify the ports exposure of your network
+####
+
+###################################
+###### IMPORTANT INFORMATION ######
+###################################
+
+### Ethics and Legal Considerations
+# Scanning networks and hosts without explicit permission is almost always illegal.
+# Always ensure you have documented authorization to scan the target network or host.
+# This tool is intended for responsible, ethical usage only.
+
+### Disclaimer
+# The author and contributors of this tool are not responsible for any misuse, damage, or legal consequences.
+# Use this tool at your own risk and ensure compliance with all applicable laws and regulations.
+
+### Scanning Behavior
+# This tool uses Nmap (nmap.org) for port scanning and network discovery.
+# The scans it performs are aggressive (fast, thorough) and not designed for stealth.
+# Be aware: scanning can trigger intrusion detection systems (IDS) or firewalls.
+
+### Technical Warning
+# Scanning wide IP ranges or many ports may generate high traffic and affect network performance.
+
+### Identification and Responsibility
+# Scans originate from your IP. If scanning shared or production infra, notify relevant stakeholders.
+# Respect robots.txt and rate limits if extending to HTTP scanning in future versions.
+
+### License
+# This tool is licensed under the MIT License. See the LICENSE file for more information.
+
+###################################
+###### IMPORTANT INFORMATION ######
+###################################
+
+
+# List of monitored hosts. **THE HOSTS LISTED BELOW WILL BE SCANNED**
+# Declared ports will be compared to the results of the scan. If they differ, a notification will be sent.
+# Default scan: nmap's top 1000 ports.
+hosts:
+  # Name of the host. This is only for your reference.
+  - name: Example 
+    # IP address or hostname of the host to be scanned. Can be a domain name or an IP address.
+    ip_or_hostname: 192.168.0.1 
+    # List of ports to be monitored. The tool will compare open ports to this list.
+    open_ports: 
+      - 22
+      - 80
+      - 443
+
+
+# List of networks to be scanned (optional). **THE HOSTS LISTED BELOW WILL BE SCANNED**
+# The tool will scan the entire network and compare the results to the list of monitored hosts (see above).
+# If any host is found in the network, a notification will be sent.
+# Default discovery method : ping
+# Comment out the network_discovery section if you don't want this feature.
+network_discovery:
+  # CIDR notation of the network to be scanned. 
+  - "192.168.0.0/24" 
+
+
+# Notification provider
+# After each run, the script will notify you of its last state with important information.
+# Available prodiders: Discord
+# Comment out the notification section if you don't want this feature.
+notification:
+  discord: 
+    url: https://discord.com/api/webhooks/1374562336647680111/JilOVHh34wsuL3rzpaLutRr3rVB3EFLpgNa6F1fuSoUZuzYInxm5sTXWR-szTMk51OGd

@@ -14,6 +14,15 @@ def main():
                         }
                     }
     """
+    print("""
+NetRecon - Discover and verify the ports exposure of your network
+
+⚠️  Use responsibly. Only scan networks you own or have permission to scan.
+📜  The author is not liable for misuse. You are responsible for your actions.
+🔍  Uses Nmap with aggressive scans – not stealthy, may trigger alerts.
+🧑‍💻  Developped by SeaweedbrainCY, under MIT licence.
+                 
+                 """)
     logging.info("Starting scanner")
     logging.info("Loading config")
     logging.info(f"Found {len(conf.hosts.host_list)} hosts to scan")
