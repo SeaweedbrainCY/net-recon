@@ -62,7 +62,7 @@ try:
         except yaml.YAMLError as exc:
             raise Exception(exc)
 except Exception as e :
-    logging.error(f"[FATAL] API will stop now. Error while checking /api/config/config.yml, {e}")
+    logging.error(f"[FATAL] API will stop now. Error while checking config.yml, {e}")
     exit(1)
 
 

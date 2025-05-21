@@ -42,7 +42,7 @@ def main():
         if os.geteuid() != 0:
             logging.error(f"[FATAL] Network discovery requires root privileges. Please run the script with sudo")
             exit(1)
-        logging.info("\nScanning for non-declared hosts")
+        logging.info("Scanning for non-declared hosts")
 
         scanned_ips = [scan_result[host]["ip"] for host in scan_result.keys()]
         ip_not_scanned_by_network = {}

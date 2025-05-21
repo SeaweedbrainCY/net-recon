@@ -10,7 +10,7 @@ def send_port_green_notification(nb_hosts):
         if isinstance(notification, DiscordNotification):
             logging.info(f"Sending green notification to discord")
             webhook = DiscordWebhook(url=notification.webhook_url)
-            embed = DiscordEmbed(title="🟢 NetRecon - All hosts are in green state", description=f"NetRecon scanned {nb_hosts} hosts. All hosts are compliant. Among all scanned ports, all of them are expected", color="00ff00")
+            embed = DiscordEmbed(title="🍏 All monitored hosts are in green state", description=f"NetRecon scanned {nb_hosts} hosts. All hosts are compliant. Among all scanned ports, all of them are expected", color="00ff00")
             embed.set_timestamp()
             embed.set_author(
                 name="NetRecon",
@@ -31,7 +31,7 @@ def send_port_red_notification(failing_hosts):
             webhook = DiscordWebhook(url=notification.webhook_url)
             host_str = "host" if len(failing_hosts.keys()) == 1 else "hosts"
             be_str = "is" if len(failing_hosts.keys()) == 1 else "are"
-            embed = DiscordEmbed(title=f"🔴 NetRecon - {len(failing_hosts.keys())} {host_str} {be_str} in red state", description=f"NetRecon scanned {len(failing_hosts)} hosts. Some ports are open and shouldn't be open.", color="ff0000")
+            embed = DiscordEmbed(title=f"🚨 {len(failing_hosts.keys())} {host_str} {be_str} in red state", description=f"NetRecon scanned {len(failing_hosts)} hosts. Some ports are open and shouldn't be open.", color="ff0000")
             for host in failing_hosts.keys():
                 msg = ""
                 for port in failing_hosts[host]['ports']:
@@ -60,7 +60,7 @@ def send_network_discovery_green_notification(nb_scanned):
         if isinstance(notification, DiscordNotification):
             logging.info(f"Sending network discovery green notification to discord")
             webhook = DiscordWebhook(url=notification.webhook_url)
-            embed = DiscordEmbed(title="🟢 NetRecon - All hosts are monitored", description=f"NetRecon scanned {nb_scanned} hosts. All hosts are already monitored", color="00ff00")
+            embed = DiscordEmbed(title="🍏 NetRecon - All hosts are monitored", description=f"NetRecon scanned {nb_scanned} hosts. All hosts are already monitored", color="00ff00")
             embed.set_timestamp()
             embed.set_author(
                 name="NetRecon",
@@ -78,7 +78,7 @@ def send_network_discovery_red_notification(ip_not_scanned_by_network):
         if isinstance(notification, DiscordNotification):
             logging.info(f"Sending network discovery red notification to discord")
             webhook = DiscordWebhook(url=notification.webhook_url)
-            embed = DiscordEmbed(title="🔴 NetRecon - Some hosts are not monitored", description=f"NetRecon scanned {len(ip_not_scanned_by_network)} network(s). Some hosts are not monitored", color="ff0000")
+            embed = DiscordEmbed(title="🚨 Some hosts are not monitored", description=f"NetRecon scanned {len(ip_not_scanned_by_network)} network(s). Some hosts are not monitored", color="ff0000")
             for network in ip_not_scanned_by_network.keys():
                 msg = ""
                 for ip in ip_not_scanned_by_network[network]:
