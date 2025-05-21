@@ -68,3 +68,14 @@ network_discovery:
 notification:
   discord: 
     url: https://discord.com/api/webhooks/...
+
+
+# Options to configure the script behavior
+option:
+  # Number of parallel scans. Default: 2
+  # Parrallel scans heavily speed up the process, but can cause network congestion.
+  # The higher the number, the faster the scan will be 
+  # The lower the number, the less network congestion will be.
+  # Consider your network capacity, your CPU number and the time you want to spend on the scan.
+  # Comment out this to use the default value.
+  parallel_scan: 2

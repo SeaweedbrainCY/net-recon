@@ -30,6 +30,7 @@ NetRecon is a simple YAML-driven network exposure checker, by checking that no *
     - [Monitored Hosts](#monitored-hosts)
     - [Network Discovery](#network-discovery)
     - [Notification](#notification)
+    - [Option](#option)
   - [🛠️ Contributing](#️contributing)
   - [📜 License](#license)
 
@@ -124,6 +125,13 @@ The `notification` section defines the notification provider to use. Currently, 
 |Field|Description|Mandatory|
 |---|---|---|
 |`notification.discord.url`| Webhook URL of Discord integration |**No**|
+
+### Option 
+*This is optional but recommended*
+The `options` section defines the options to use for your scan. 
+|Field|Description|Mandatory|
+|---|---|---|
+|`options.parallel_scan`|Define the number of scan that will be executed in parallel. Default is 2. **Be careful, increasing this value will heavily speed up the script, but also increase the CPU usage and heavily impact the network.**|**No**|
 
 ## 🛠️ Contributing
 Contributions are welcome! If you have suggestions or improvements, please open an issue or submit a pull request.
