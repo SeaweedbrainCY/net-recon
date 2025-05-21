@@ -21,17 +21,24 @@ def send_port_green_notification(nb_hosts):
             webhook.execute()
             logging.info("Green notification sent to discord")
 
-def send_port_red_notification(failing_hosts):
+def send_port_red_notification(scan_result):
     """
     Send a notification to discord when the scan is finished and at least one host is red
     """
+    failing_hosts = {}
+    for host in scan_result.keys():
+        if scan_result[host]["faulty"]:
+            failing_hosts[host] = {
+                "ip": scan_result[host]["ip"],
+                "ports": scan_result[host]["ports"]
+            }
     for notification in conf.notification.notification_methods:
         if isinstance(notification, DiscordNotification):
             logging.info(f"Sending red notification to discord")
             webhook = DiscordWebhook(url=notification.webhook_url)
             host_str = "host" if len(failing_hosts.keys()) == 1 else "hosts"
             be_str = "is" if len(failing_hosts.keys()) == 1 else "are"
-            embed = DiscordEmbed(title=f"🚨 {len(failing_hosts.keys())} {host_str} {be_str} in red state", description=f"NetRecon scanned {len(failing_hosts)} hosts. Some ports are open and shouldn't be open.", color="DF2E38")
+            embed = DiscordEmbed(title=f"🚨 {len(failing_hosts.keys())} {host_str} {be_str} in red state", description=f"NetRecon scanned {len(failing_hosts)} hosts. Some ports are open and shouldn't be open. Faulty hosts :", color="DF2E38")
             for host in failing_hosts.keys():
                 msg = ""
                 for port in failing_hosts[host]['ports']:
@@ -39,7 +46,7 @@ def send_port_red_notification(failing_hosts):
                         msg += f"🟢 {port['number']}\n"
                     else:
                         msg += f"🔴 {port['number']}\n"
-                embed.add_embed_field(name=f"Open ports of {host} ({failing_hosts[host]['ip']}) :", value=msg)
+                embed.add_embed_field(name=f"{host} ({failing_hosts[host]['ip']}) :", value=msg)
             embed.set_timestamp()
             embed.set_author(
                 name="NetRecon",

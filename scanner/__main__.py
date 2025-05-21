@@ -10,7 +10,8 @@ def main():
                             [
                                 {number: 22, expected: True}
                             ],
-                        ip: "127.0.0.1"
+                        ip: "127.0.0.1",
+                        faulty: False
                         }
                     }
     """
@@ -27,17 +28,19 @@ NetRecon - Discover and verify the ports exposure of your network
     logging.info("Starting scanner")
     logging.info("Loading config")
     logging.info(f"Found {len(conf.hosts.host_list)} hosts to scan")
-    scan_result = {} # 
+    scan_result = {} 
+    faulty_hosts = {}
     are_hosts_all_green = True
     for host in conf.hosts.host_list.keys():
         logging.info(f"Scanning host {host}")
         open_ports, ip = recon.scan_open_ports(conf.hosts.host_list[host]["ip_or_hostname"])
         if host not in scan_result:
-                scan_result[host] = {"ports": [], "ip":ip}
+                scan_result[host] = {"ports": [], "ip":ip, "faulty": False}
         for port in open_ports:
             if port not in conf.hosts.host_list[host]["open_ports"]:
                 scan_result[host]["ports"] += [{"number": port, "expected": False}]
                 are_hosts_all_green = False
+                scan_result[host]["faulty"] = True
                 logging.warning(f"Port {port} is open but was not expected")
             else:
                 scan_result[host]["ports"] += [{"number": port, "expected": True}]
