@@ -14,7 +14,7 @@ def send_port_green_notification(nb_hosts):
             embed.set_timestamp()
             embed.set_author(
                 name="NetRecon",
-                icon_url="https://avatars0.githubusercontent.com/u/14542790",
+                icon_url="https://raw.githubusercontent.com/SeaweedbrainCY/net-recon/refs/heads/main/assets/NetRecon_square.png",
             )
 
             webhook.add_embed(embed)
@@ -42,7 +42,10 @@ def send_port_red_notification(failing_hosts):
                 msg = msg[:-2]
                 embed.add_embed_field(name=f"Open ports of {host} ({failing_hosts[host]['ip']}) :", value=msg, inline=False)
             embed.set_timestamp()
-
+            embed.set_author(
+                name="NetRecon",
+                icon_url="https://raw.githubusercontent.com/SeaweedbrainCY/net-recon/refs/heads/main/assets/NetRecon_square.png",
+            )
             webhook.add_embed(embed)
             webhook.execute()
             logging.info("Red notification sent to discord")
@@ -59,7 +62,10 @@ def send_network_discovery_green_notification(nb_scanned):
             webhook = DiscordWebhook(url=notification.webhook_url)
             embed = DiscordEmbed(title="🟢 NetRecon - All hosts are monitored", description=f"NetRecon scanned {nb_scanned} hosts. All hosts are already monitored", color="00ff00")
             embed.set_timestamp()
-
+            embed.set_author(
+                name="NetRecon",
+                icon_url="https://raw.githubusercontent.com/SeaweedbrainCY/net-recon/refs/heads/main/assets/NetRecon_square.png",
+            )
             webhook.add_embed(embed)
             webhook.execute()
             logging.info("Network discovery green notification sent to discord")
@@ -80,7 +86,10 @@ def send_network_discovery_red_notification(ip_not_scanned_by_network):
                 msg = msg[:-2]
                 embed.add_embed_field(name=f"Hosts not monitored in {network} :", value=msg, inline=False)
             embed.set_timestamp()
-
+            embed.set_author(
+                name="NetRecon",
+                icon_url="https://raw.githubusercontent.com/SeaweedbrainCY/net-recon/refs/heads/main/assets/NetRecon_square.png",
+            )
             webhook.add_embed(embed)
             webhook.execute()
             logging.info("Network discovery red notification sent to discord")
