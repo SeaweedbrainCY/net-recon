@@ -37,8 +37,13 @@ NetRecon is a simple YAML-driven network exposure checker, by checking that no *
 - **YAML Configuration**: Define expected hosts and ports in a simple YAML file.
 - **Port Scanning**: Uses Nmap for port scanning to check if unexpected ports are open.
 - **Network Discovery**: Identifies hosts on the network and verify if they're already monitored.
-- **Notification**: Get notified via Discord if any unexpected hosts or ports are reachable.
 - **Docker**: Run the tool in a Docker container for easy deployment and isolation.
+- **Notification**: Get notified via Discord if any unexpected hosts or ports are reachable.
+
+Notification example :
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SeaweedbrainCY/net-recon/refs/heads/main/assets/discord_notif_example.png" alt="NetRecon Logo" width="200"/>
+</p>
 
 > [!IMPORTANT]
 > NetRecon is under active development. Expect breaking changes and new features in the future.
@@ -96,7 +101,6 @@ docker-compose up -d
 ```bash
 0 0 * * * docker compose -f /path/to/docker-compose.yml up -d
 ```
-
 
 ## 🔧 Configuration
 ### Monitored Hosts
