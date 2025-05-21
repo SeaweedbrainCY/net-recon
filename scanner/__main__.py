@@ -14,7 +14,8 @@ def main():
                         }
                     }
     """
-    print("""
+    logging.info("""
+                 
 NetRecon - Discover and verify the ports exposure of your network
 
 ⚠️  Use responsibly. Only scan networks you own or have permission to scan.
@@ -47,7 +48,7 @@ NetRecon - Discover and verify the ports exposure of your network
     else:
         send_port_red_notification(scan_result)
 
-    if len(scan_result.keys()) >= 0:
+    if len(scan_result.keys()) >= 1:
         if os.geteuid() != 0:
             logging.error(f"[FATAL] Network discovery requires root privileges. Please run the script with sudo")
             exit(1)
