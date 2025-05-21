@@ -1,4 +1,4 @@
-# NetRecon -
+# NetRecon - Discover and verify the ports exposure of your network
 <p align="center">
 <img src="https://github.com/SeaweedbrainCY/net-recon/actions/workflows/build_and_publish.yml/badge.svg"/>
  <img src="https://img.shields.io/github/license/seaweedbraincy/net-recon"/>
@@ -22,6 +22,7 @@ NetRecon is a simple YAML-driven network exposure checker, by checking that no *
     - [🧾 Disclaimer](#-disclaimer)
     - [📡 Scanning Behavior](#-scanning-behavior)
     - [⚙️ Technical Note](#️technical-note)
+    - [🪪 Identification and Responsibility](#-identification-and-responsibility)
   - [🚀 Getting Started](#-getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
@@ -63,7 +64,9 @@ NetRecon uses [Nmap](https://nmap.org) for port scanning and network discovery.
 
 ### ⚙️ Technical Note
 Running large scans may generate significant network traffic.  
-Use NetRecon in **controlled** environments like test labs, CI pipelines, or with prior approval in production.
+
+### 🪪 Identification and Responsibility
+Scans originate from your IP. If scanning shared or production infra, notify relevant stakeholders.
 
 ## 🚀 Getting Started
 ### Prerequisites

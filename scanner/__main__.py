@@ -32,10 +32,9 @@ NetRecon - Discover and verify the ports exposure of your network
     for host in conf.hosts.host_list.keys():
         logging.info(f"Scanning host {host}")
         open_ports, ip = recon.scan_open_ports(conf.hosts.host_list[host]["ip_or_hostname"])
-        for port in open_ports:
-            if host not in scan_result:
+        if host not in scan_result:
                 scan_result[host] = {"ports": [], "ip":ip}
-
+        for port in open_ports:
             if port not in conf.hosts.host_list[host]["open_ports"]:
                 scan_result[host]["ports"] += [{"number": port, "expected": False}]
                 are_hosts_all_green = False
