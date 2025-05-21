@@ -10,7 +10,7 @@ def send_port_green_notification(nb_hosts):
         if isinstance(notification, DiscordNotification):
             logging.info(f"Sending green notification to discord")
             webhook = DiscordWebhook(url=notification.webhook_url)
-            embed = DiscordEmbed(title="🍏 All monitored hosts are in green state", description=f"NetRecon scanned {nb_hosts} hosts. All hosts are compliant. Among all scanned ports, all of them are expected", color="00ff00")
+            embed = DiscordEmbed(title="🍏 All monitored hosts are in green state", description=f"NetRecon scanned {nb_hosts} hosts. All hosts are compliant. Among all scanned ports, all of them are expected", color="5D9C59")
             embed.set_timestamp()
             embed.set_author(
                 name="NetRecon",
@@ -31,16 +31,15 @@ def send_port_red_notification(failing_hosts):
             webhook = DiscordWebhook(url=notification.webhook_url)
             host_str = "host" if len(failing_hosts.keys()) == 1 else "hosts"
             be_str = "is" if len(failing_hosts.keys()) == 1 else "are"
-            embed = DiscordEmbed(title=f"🚨 {len(failing_hosts.keys())} {host_str} {be_str} in red state", description=f"NetRecon scanned {len(failing_hosts)} hosts. Some ports are open and shouldn't be open.", color="ff0000")
+            embed = DiscordEmbed(title=f"🚨 {len(failing_hosts.keys())} {host_str} {be_str} in red state", description=f"NetRecon scanned {len(failing_hosts)} hosts. Some ports are open and shouldn't be open.", color="DF2E38")
             for host in failing_hosts.keys():
                 msg = ""
                 for port in failing_hosts[host]['ports']:
                     if port["expected"]:
-                        msg += f"🟢 {port['number']}, "
+                        msg += f"🟢 {port['number']}\n"
                     else:
-                        msg += f"🔴 {port['number']}, "
-                msg = msg[:-2]
-                embed.add_embed_field(name=f"Open ports of {host} ({failing_hosts[host]['ip']}) :", value=msg, inline=False)
+                        msg += f"🔴 {port['number']}\n"
+                embed.add_embed_field(name=f"Open ports of {host} ({failing_hosts[host]['ip']}) :", value=msg)
             embed.set_timestamp()
             embed.set_author(
                 name="NetRecon",
@@ -60,7 +59,7 @@ def send_network_discovery_green_notification(nb_scanned):
         if isinstance(notification, DiscordNotification):
             logging.info(f"Sending network discovery green notification to discord")
             webhook = DiscordWebhook(url=notification.webhook_url)
-            embed = DiscordEmbed(title="🍏 NetRecon - All hosts are monitored", description=f"NetRecon scanned {nb_scanned} hosts. All hosts are already monitored", color="00ff00")
+            embed = DiscordEmbed(title="🍏 NetRecon - All hosts are monitored", description=f"NetRecon scanned {nb_scanned} hosts. All hosts are already monitored", color="5D9C59")
             embed.set_timestamp()
             embed.set_author(
                 name="NetRecon",
@@ -78,13 +77,12 @@ def send_network_discovery_red_notification(ip_not_scanned_by_network):
         if isinstance(notification, DiscordNotification):
             logging.info(f"Sending network discovery red notification to discord")
             webhook = DiscordWebhook(url=notification.webhook_url)
-            embed = DiscordEmbed(title="🚨 Some hosts are not monitored", description=f"NetRecon scanned {len(ip_not_scanned_by_network)} network(s). Some hosts are not monitored", color="ff0000")
+            embed = DiscordEmbed(title="🚨 Some hosts are not monitored", description=f"NetRecon scanned {len(ip_not_scanned_by_network)} network(s). Some hosts are not monitored", color="DF2E38")
             for network in ip_not_scanned_by_network.keys():
                 msg = ""
                 for ip in ip_not_scanned_by_network[network]:
-                    msg += f"🔴 {ip}, "
-                msg = msg[:-2]
-                embed.add_embed_field(name=f"Hosts not monitored in {network} :", value=msg, inline=False)
+                    msg += f"🔴 {ip}\n"
+                embed.add_embed_field(name=f"Hosts not monitored in {network} :", value=msg)
             embed.set_timestamp()
             embed.set_author(
                 name="NetRecon",
