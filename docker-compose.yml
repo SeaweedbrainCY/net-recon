@@ -1,7 +1,7 @@
 services:
   net-recon:
-    image: ghcr.io/seaweedbrain/net-recon:latest
+    image: ghcr.io/seaweedbraincy/net-recon:latest
     container_name: net-recon
-    restart: unless-stopped
     volumes:
       - ./config.yml:/app/config.yml
+    restart: no
