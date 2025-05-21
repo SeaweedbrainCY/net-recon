@@ -1,5 +1,12 @@
-# net-recon
-Want to be sure you don't have any **unexpected** hosts or ports reachable on your network ? 
+# NetRecon -
+<p align="center">
+<img src="https://github.com/SeaweedbrainCY/net-recon/actions/workflows/build_and_publish.yml/badge.svg"/>
+ <img src="https://img.shields.io/github/license/seaweedbraincy/net-recon"/>
+<img src="https://img.shields.io/github/v/release/seaweedbraincy/net-recon"/>
+</p>
+
+**Want to be sure you don't have any unexpected hosts or ports reachable on your network ?**
+
 
 NetRecon is a simple YAML-driven network exposure checker, by checking that no **unexpected** hosts and ports are reachable — no more blind spots. 
 
@@ -82,6 +89,10 @@ curl -L https://raw.githubusercontent.com/SeaweedbrainCY/net-recon/main/config.e
 ```bash
 docker-compose up -d
 ```
+5. Schedule scan *optional* : NetRecon doesn't embark on any scheduling. You can use your favorite scheduler (like cron) to run the container at regular intervals. For example, to run it every day at midnight, you can add the following line to your crontab:
+```bash
+0 0 * * * docker compose -f /path/to/docker-compose.yml up -d
+```
 
 
 ## 🔧 Configuration
@@ -114,4 +125,3 @@ If you like this project, please consider giving it a star on GitHub! ⭐
 
 ## 📜 License
 This project is licensed under the MIT License. See the [LICENSE](https://raw.githubusercontent.com/SeaweedbrainCY/net-recon/main/LICENSE) file for details.
-```
